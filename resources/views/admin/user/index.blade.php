@@ -58,7 +58,7 @@
                                                 </svg>
                                                 Edit
                                              </a>
-                                            <form action=" {{route('user.destroy', $item->id)}}" method="POST" style="display:inline">
+                                            <form action=" {{route('user.destroy', $item-id)}}" method="POST" style="display:inline">
                                                 @csrf
                                                 @method("DELETE")
                                                 <button type="submit" class="btn btn-danger btn-sm">

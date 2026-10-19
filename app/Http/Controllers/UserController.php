@@ -31,12 +31,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
+        $request->validate([
+        'name'     => 'required|string|max:100',
+        'email'    => 'required|email|unique:users,email',
+        'password' => 'required|min:8|confirmed',
+        ]);
 
-        $data['name'] = $request->name;
-		$data['email'] = $request->email;
-		$data['password'] = $Hash::make($request->password);
-		
-		User::create($data);
 		return redirect()->route('user.index')->with('success','Penambahan Data Berhasil!');
     }
 
@@ -62,17 +62,12 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user_id = $id;
-        $user = User::findOrFail($user_id);
+        $request->validate([
+            'name'     => 'required|string|max:100',
+            'email'    => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:8|confirmed',
+        ]);
 
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->birthday= $request->birthday;
-        $user->gender = $request->gender;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-
-        $user->save();
         return redirect()->route('user.index')->with('success'.'Perubahan Data Berhasil!');
     }
 
