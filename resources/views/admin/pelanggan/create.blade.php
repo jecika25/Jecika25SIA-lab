@@ -30,7 +30,7 @@
             <div class="col-12 mb-4">
                 <div class="card border-0 shadow components-section">
                     <div class="card-body">
-                        <form action={{route("pelanggan.store")}} method="POST">
+                        <form action="{{route('pelanggan.store')}}" method="POST">
                             @csrf
                             <div class="row mb-4">
                                 <div class="col-lg-4 col-sm-6">
