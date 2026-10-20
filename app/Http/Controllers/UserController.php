@@ -31,13 +31,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $request->validate([
-        'name'     => 'required|string|max:100',
-        'email'    => 'required|email|unique:users,email',
-        'password' => 'required|min:8|confirmed',
-        ]);
+        {
+            $request->validate([
+                'name'     => 'required|string|max:100',
+                'email'    => 'required|email|unique:users,email',
+                'password' => 'required|min:8|confirmed',
+            ]);
 
-		return redirect()->route('user.index')->with('success','Penambahan Data Berhasil!');
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['password'] = Hash::make($request->password);
+
+            User::create($data);
+
+            return redirect()->route('user.index')->with('success', 'Penambahan Data Berhasil!');
+        }
     }
 
     /**
