@@ -94,6 +94,7 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown ms-lg-3">
+                            @if(Auth::check())
                             <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="media d-flex align-items-center">
                                     <img class="avatar rounded-circle" alt="Image placeholder" src="{{ asset('assets-admin/img/team/profile-picture-3.jpg') }}">
@@ -138,6 +139,9 @@
                                 </form>
                                 </a>
                             </div>
+                            @else
+                                <a class="btn btn-primary" href="{{route('auth.login')}}">Silahkan Login</a>
+                            @endif
                         </li>
                     </ul>
                 </div>

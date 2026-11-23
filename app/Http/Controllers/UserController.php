@@ -87,6 +87,7 @@ class UserController extends Controller
         $user = user::findOrFail($id);
 
         $user→delete();
+
         return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
     }
 }
