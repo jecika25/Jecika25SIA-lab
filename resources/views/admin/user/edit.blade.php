@@ -22,7 +22,7 @@
                     <p class="mb-0">Form untuk mengedit data User.</p>
                 </div>
                 <div>
-                    <a href="{{route('User.index') }}" class="btn btn-primary"><i class="far fa-question-circle me-1"></i> Kembali</a>
+                    <a href="{{route('user.index') }}" class="btn btn-primary"><i class="far fa-question-circle me-1"></i> Kembali</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                                     </ul>
                                 </div>
                             @endif
-                        <form action="{{route('User.update', $dataUser->User_id)}}" method="POST">
+                        <form action="{{ route('user.update', $dataUser->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row mb-4">
@@ -52,15 +52,15 @@
                                     <!--Name -->
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" id="name" name="name" class="form-control" required>
-                                        value="{{ old('name', $user->name) }}"
+                                        <input type="text" id="name" name="name" class="form-control"
+    value="{{ old('name', $dataUser->name) }}">
                                     </div>  
 
                                     <!-- Email -->
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="text" id="email" name="email" class="form-control" required>
-                                        value="{{ old('email', $user->email) }}"
+                                        <input type="email" id="email" name="email" class="form-control"
+    value="{{ old('email', $dataUser->email) }}">
                                     </div>
                                 </div>
 
@@ -77,6 +77,29 @@
                                         <label for="password_confirmation" class="form-label">Confirm Password</label>
                                         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control">
                                     </div>
+                                </div>
+                                {{-- Role --}}
+                                <div class="mb-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select name="role" id="role"
+                                        class="form-select @error('role') is-invalid @enderror" required>
+                                        <option value="">Pilih Role</option>
+                                        <option value="Super Admin"
+                                            {{ old('role', $dataUser->role) == 'Super Admin' ? 'selected' : '' }}>
+                                            Super Admin
+                                        </option>
+                                        <option value="Pelanggan"
+                                            {{ old('role', $dataUser->role) == 'Pelanggan' ? 'selected' : '' }}>
+                                            Pelanggan
+                                        </option>
+                                        <option value="Mitra" {{ old('role', $dataUser->role) == 'Mitra' ? 'selected' : '' }}>
+                                            Mitra
+                                        </option>
+                                    </select>
+
+                                    @error('role')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <!-- Buttons -->
                                     <div class="">

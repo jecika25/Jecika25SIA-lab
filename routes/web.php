@@ -56,3 +56,16 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('auth.logout');
+Route::group(['middleware' => ['checkislogin']], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::resource('pelanggan', PelangganController::class);
+    Route::resource('user', UserController::class);
+});
+Route::group(['middleware' => ['checkislogin']], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // hanya admin
+    Route::resource('user', UserController::class)->middleware('checkrole:admin');
+    // admin dan staff
+    Route::resource('pelanggan', PelangganController::class)->middleware('checkrole:admin,staff');
+});
